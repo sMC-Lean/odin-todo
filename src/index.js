@@ -18,7 +18,7 @@ import {
   handleForm,
   hideForm,
 } from "./JS/form.js";
-import { renderUserName } from "./JS/views.js";
+import { renderCategoryButtons, renderUserName } from "./JS/views.js";
 
 const sidebar = document.querySelector("#header-bar");
 const addTaskButton = document.querySelector("#add-task");
@@ -31,10 +31,22 @@ document.querySelector("#page-icon").setAttribute("href", iconLogo);
 document.querySelector("#user-icon").setAttribute("src", emptyUserImg);
 document.querySelector("#app-logo").setAttribute("src", appLogo);
 
+function addNewCategory(newTaskData) {
+  const newTaskCategory = newTaskData.taskData.category.toLowerCase();
+  const existingCategories = JSON.parse(localStorage.categories);
+  if (!existingCategories.includes(newTaskCategory)) {
+    existingCategories.push(newTaskCategory);
+    localStorage.setItem("categories", JSON.stringify(existingCategories));
+  }
+}
+
 function submitNewTask(event) {
   event.preventDefault();
   const newTaskData = handleForm();
   hideForm();
+  //   category checking chain begins here;
+  addNewCategory(newTaskData);
+  renderCategoryButtons();
   const newTaskObject = {
     taskID: newTaskData.taskID,
     taskData: newTaskData.taskData,
@@ -84,11 +96,9 @@ function setUser() {
   if (storageAvailable("localStorage")) {
     console.log("module ran, storage available");
     if (!localStorage.categories) {
-      localStorage.setItem(
-        "categories",
-        JSON.stringify(["Personal", "Add New"])
-      );
+      localStorage.setItem("categories", JSON.stringify(["personal"]));
     }
+    if (localStorage.categories) renderCategoryButtons();
     if (!localStorage.tasks) {
       localStorage.setItem("tasks", JSON.stringify([]));
     }

@@ -105,6 +105,13 @@ button:active {
   padding: 24px 0;
 }
 
+#category-button-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1ch;
+}
+
 #app-title {
   margin-top: auto;
   display: flex;
