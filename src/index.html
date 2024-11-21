@@ -3,7 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Template</title>
+    <link id="page-icon" rel="icon" href="" type="image/x-icon" />
+    <title>taskTracker</title>
   </head>
-  <body></body>
+  <body>
+    <div id="page-wrapper">
+      <header id="header-bar">
+        <div id="avatar">
+          <div id="avatar-image" width="20px" height="20px">
+            <img
+              id="user-icon"
+              class="empty-icon"
+              src=""
+              alt=""
+              height="28px"
+            />
+          </div>
+          <h3 id="avatar-name">New User</h3>
+        </div>
+        <div id="view-div">
+          <h2 class="sidebar-title">View Tasks</h2>
+          <button class="day-button" data-view="today">Today</button>
+          <button class="day-button" data-view="week">This Week</button>
+          <button class="day-button" data-view="all">all</button>
+        </div>
+        <div id="list-div">
+          <h2 class="sidebar-title">Lists</h2>
+          <button id="personal" data-list="personal">Personal</button>
+        </div>
+        <div id="app-title">
+          <img src="" alt="" id="app-logo" height="64px" />
+          <p id="app-title-text">taskTracker</p>
+        </div>
+      </header>
+      <div id="content">content wrapper</div>
+    </div>
+  </body>
 </html>
