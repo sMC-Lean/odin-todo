@@ -6,46 +6,103 @@ import iconLogo from "./images/logo-500.png";
 import emptyUserImg from "./images/empty-account.svg";
 import appLogo from "./images/logo-500-dark.png";
 
-import { initPage } from "./JS/init.js";
+import { storageAvailable } from "./JS/check-storage.js";
 import {
   setStorageData,
   getStorageData,
   deleteTaskFromStorage,
 } from "./JS/storage.js";
-import { handleForm } from "./JS/form.js";
+import {
+  constructUserForm,
+  constructTaskForm,
+  handleForm,
+  hideForm,
+} from "./JS/form.js";
+import { renderUserName } from "./JS/views.js";
 
-const taskViewButtonContainer = document.querySelector("#view-div");
-const listViewButtonContainer = document.querySelector("#list-div");
+const sidebar = document.querySelector("#header-bar");
+const addTaskButton = document.querySelector("#add-task");
+const modal = document.querySelector("#modal");
+const modalContentContainer = document.querySelector("#modal-content");
+const overlay = document.querySelector("#overlay");
+const formCloseButton = document.querySelector("#close-button");
 
 document.querySelector("#page-icon").setAttribute("href", iconLogo);
 document.querySelector("#user-icon").setAttribute("src", emptyUserImg);
 document.querySelector("#app-logo").setAttribute("src", appLogo);
 
-function submitNewTask() {
-  const newTask = handleForm();
-  setStorageData(newTask.taskID, JSON.stringify(newTask.taskData));
+function submitNewTask(event) {
+  event.preventDefault();
+  const newTaskData = handleForm();
+  hideForm();
+  const newTaskObject = {
+    taskID: newTaskData.taskID,
+    taskData: newTaskData.taskData,
+  };
+  setStorageData(newTaskObject);
+}
+
+function submitNewUser(event) {
+  event.preventDefault();
+  const nameField = document.querySelector("#name");
+  localStorage.setItem("user", JSON.stringify(nameField.value));
+  hideForm();
+  renderUserName();
 }
 
 // button handlers;
-function viewTasksButtonHandler(event) {
+function viewButtonHandler(event) {
   event.preventDefault();
-  console.log(`${event.target.dataset.view} button clicked`);
+  if (event.target.classList.contains("view-button")) {
+    console.log(`${event.target.dataset.view} button clicked`);
+    getStorageData(event.target.dataset.view);
+  }
 }
-taskViewButtonContainer.addEventListener("click", viewTasksButtonHandler);
+sidebar.addEventListener("click", viewButtonHandler);
 
-function viewListButtonHandler(event) {
+function addTaskButtonHandler(event) {
   event.preventDefault();
-  console.log(`${event.target.dataset.list} button clicked`);
+  console.log("add nw task");
+  const newFormEl = constructTaskForm();
+  modalContentContainer.appendChild(newFormEl);
+  newFormEl.addEventListener("submit", submitNewTask);
+  [modal, overlay].forEach((el) => el.classList.remove("hidden"));
 }
-listViewButtonContainer.addEventListener("click", viewListButtonHandler);
+addTaskButton.addEventListener("click", addTaskButtonHandler);
+formCloseButton.addEventListener("click", hideForm);
+
+function setUser() {
+  if (!localStorage.user) {
+    const newFormEl = constructUserForm();
+    modalContentContainer.appendChild(newFormEl);
+    newFormEl.addEventListener("submit", submitNewUser);
+    [modal, overlay].forEach((el) => el.classList.remove("hidden"));
+  }
+}
+
+(function initPage() {
+  if (storageAvailable("localStorage")) {
+    console.log("module ran, storage available");
+    if (!localStorage.categories) {
+      localStorage.setItem(
+        "categories",
+        JSON.stringify(["Personal", "Add New"])
+      );
+    }
+    if (!localStorage.tasks) {
+      localStorage.setItem("tasks", JSON.stringify([]));
+    }
+    if (!localStorage.user) setUser();
+
+    // initial render shoudl go here;
+    if (localStorage.user) renderUserName();
+  } else {
+    console.log("module ran, storage error");
+    // Too bad, no localStorage for us
+  }
+})();
 
 // testing in dev;
-
-const firstDataArray = Array.from(getStorageData());
-console.log(firstDataArray);
-// submitNewTask();
-deleteTaskFromStorage(1732050541483);
-const secondDataArray = Array.from(getStorageData());
-console.log(secondDataArray);
-
-initPage();
+document.querySelector("#clear-all").addEventListener("click", () => {
+  localStorage.clear();
+});

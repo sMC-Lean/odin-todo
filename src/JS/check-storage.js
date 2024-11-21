@@ -1,7 +1,7 @@
 "use strict";
 
 // helper function, assesses the page for localStorage access and previous data;
-function storageAvailable(type) {
+export function storageAvailable(type) {
   let storage;
   try {
     storage = window[type];
@@ -19,17 +19,5 @@ function storageAvailable(type) {
       storage &&
       storage.length !== 0
     );
-  }
-}
-
-function setUser() {}
-
-export function initPage() {
-  if (storageAvailable("localStorage")) {
-    // Yippee! We can use localStorage awesomeness
-    console.log("module ran, storage available");
-  } else {
-    console.log("module ran, storage error");
-    // Too bad, no localStorage for us
   }
 }

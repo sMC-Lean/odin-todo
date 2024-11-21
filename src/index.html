@@ -23,20 +23,41 @@
         </div>
         <div id="view-div">
           <h2 class="sidebar-title">View Tasks</h2>
-          <button class="day-button" data-view="today">Today</button>
-          <button class="day-button" data-view="week">This Week</button>
-          <button class="day-button" data-view="all">all</button>
+          <button class="view-button" data-view="today">Today</button>
+          <button class="view-button" data-view="week">This Week</button>
+          <button class="view-button" data-view="all">all</button>
         </div>
         <div id="list-div">
           <h2 class="sidebar-title">Lists</h2>
-          <button id="personal" data-list="personal">Personal</button>
+          <button id="personal" class="view-button" data-view="personal">
+            Personal
+          </button>
+          <!--TODO this button is for testing during dev only, to be removed for prod -->
+          <button
+            id="clear-all"
+            class="view-button"
+            data-view="clear"
+            style="background-color: red"
+          >
+            CLEAR STORAGE
+          </button>
+          <!-- end button -->
         </div>
         <div id="app-title">
           <img src="" alt="" id="app-logo" height="64px" />
           <p id="app-title-text">taskTracker</p>
         </div>
       </header>
-      <div id="content">content wrapper</div>
+      <div id="content">
+        content wrapper
+        <div id="add-task">+</div>
+      </div>
     </div>
+    <div id="modal" class="hidden">
+      <button id="close-button">x</button>
+      <div id="modal-content"></div>
+    </div>
+    </div>
+    <div id="overlay" class="hidden"></div>
   </body>
 </html>
