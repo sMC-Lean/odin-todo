@@ -7,9 +7,9 @@ export function storageAvailable(type) {
     storage = window[type];
     const x = "__storage_test__";
     storage.setItem(x, x);
-    console.log(window.localStorage);
+    // console.log(window.localStorage);
     storage.removeItem(x);
-    console.log(localStorage);
+    // console.log(localStorage);
     return true;
   } catch (error) {
     return (

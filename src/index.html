@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link id="page-icon" rel="icon" href="" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@300..700&family=Numans&display=swap" rel="stylesheet">
     <title>taskTracker</title>
   </head>
   <body>
@@ -25,7 +28,8 @@
           <h2 class="sidebar-title">View Tasks</h2>
           <button class="view-button" data-view="today">Today</button>
           <button class="view-button" data-view="week">This Week</button>
-          <button class="view-button" data-view="all">all</button>
+          <button class="view-button" data-view="overdue">Overdue</button>
+          <button class="view-button" data-view="all">All</button>
         </div>
         <div id="list-div">
           <h2 class="sidebar-title">Lists</h2>
@@ -34,16 +38,6 @@
               Personal
             </button>
           </div>
-          <!--TODO this button is for testing during dev only, to be removed for prod -->
-          <button
-            id="clear-all"
-            class="view-button"
-            data-view="clear"
-            style="background-color: red"
-          >
-            CLEAR STORAGE
-          </button>
-          <!-- end button -->
         </div>
         <div id="app-title">
           <img src="" alt="" id="app-logo" height="64px" />
@@ -51,7 +45,7 @@
         </div>
       </header>
       <div id="content">
-        content wrapper
+        <div id="task-container"></div>
         <div id="add-task">+</div>
       </div>
     </div>

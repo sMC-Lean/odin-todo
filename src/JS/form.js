@@ -1,5 +1,9 @@
 "use strict";
-const minInputDate = new Date().toISOString().slice(0, 10);
+import { getCurrentDateAEST } from "./date";
+// const minInputDate = new Date().toISOString().slice(0, 10);
+const overlay = document.querySelector("#overlay");
+const modal = document.querySelector("#modal");
+const modalContentContainer = document.querySelector("#modal-content");
 const userFieldsData = [
   {
     type: "label",
@@ -36,6 +40,7 @@ const formFieldsData = [
       { name: "type", val: "text" },
       { name: "id", val: "title" },
       { name: "name", val: "title" },
+      { name: "autocorrect", val: "true" },
       { name: "required", val: "true" },
     ],
   },
@@ -50,6 +55,7 @@ const formFieldsData = [
       { name: "type", val: "text" },
       { name: "id", val: "category" },
       { name: "name", val: "category" },
+      { name: "autocorrect", val: "true" },
       { name: "placeholder", val: "list name" },
     ],
   },
@@ -59,11 +65,13 @@ const formFieldsData = [
     attributes: [{ name: "for", val: "description" }],
   },
   {
-    type: "input",
+    type: "textarea",
     attributes: [
-      { name: "type", val: "textarea" },
+      // { name: "type", val: "textarea" },
       { name: "id", val: "description" },
       { name: "name", val: "description" },
+      { name: "rows", val: "3" },
+      { name: "autocorrect", val: "true" },
       { name: "required", val: "true" },
     ],
   },
@@ -79,7 +87,7 @@ const formFieldsData = [
       { name: "id", val: "date" },
       { name: "name", val: "date" },
       { name: "required", val: "true" },
-      { name: "min", val: minInputDate },
+      { name: "min", val: getCurrentDateAEST() },
     ],
   },
   {
@@ -175,7 +183,6 @@ export function constructUserForm() {
   return newForm;
 }
 
-// TODO add category checking;
 export function handleForm() {
   const titleField = document.querySelector("#title");
   const categoryField = document.querySelector("#category");
@@ -184,8 +191,8 @@ export function handleForm() {
   const priorityField = document.querySelector("#priority");
   const taskID = new Date().getTime();
   const taskData = {
-    category: categoryField.value,
-    title: titleField.value,
+    category: categoryField.value?.toLowerCase() || "personal",
+    title: titleField.value.toLowerCase(),
     description: descriptionField.value,
     dueDate: dateField.value,
     priority: priorityField.value,
@@ -193,10 +200,14 @@ export function handleForm() {
   return { taskID, taskData };
 }
 
+export function constructDescriptionModal(text) {
+  const newParagraph = document.createElement("p");
+  newParagraph.classList.add("task-description");
+  newParagraph.textContent = text;
+  return newParagraph;
+}
+
 export function hideForm() {
-  const overlay = document.querySelector("#overlay");
-  const modal = document.querySelector("#modal");
   [modal, overlay].forEach((el) => el.classList.add("hidden"));
-  const modalContentContainer = document.querySelector("#modal-content");
   modalContentContainer.innerHTML = "";
 }
