@@ -46,9 +46,7 @@ export function setStorageData(newTaskObject) {
   const existingTasks = getStorageData();
   const mergedObjects = [...existingTasks];
   mergedObjects.push(newTaskObject);
-  console.log(mergedObjects);
   localStorage.setItem("tasks", JSON.stringify(mergedObjects));
-  console.log(Array.from(JSON.parse(localStorage.tasks)));
 }
 
 export function updateTaskToComplete(taskID) {
@@ -59,7 +57,6 @@ export function updateTaskToComplete(taskID) {
     }
     return task;
   });
-  //   console.log(updatedStorageData);
   localStorage.setItem("tasks", JSON.stringify(updatedStorageData));
 }
 
@@ -67,9 +64,7 @@ function deleteCategoryFromStorage(categoryToDelete) {
   const instancesOfCategory = getStorageData().filter(
     (task) => task.taskData.category === categoryToDelete
   );
-  console.log(instancesOfCategory);
   if (instancesOfCategory.length) return;
-  console.log("delete category triggered");
   const existingCategories = JSON.parse(localStorage.categories);
   const updatedCategories = existingCategories.filter(
     (category) => category !== categoryToDelete

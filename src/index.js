@@ -45,7 +45,6 @@ function submitNewTask(event) {
   event.preventDefault();
   const newTaskData = handleForm();
   hideForm();
-  //   category checking chain begins here;
   addNewCategory(newTaskData);
   renderCategoryButtons();
   const newTaskObject = {
@@ -68,7 +67,6 @@ function submitNewUser(event) {
 function viewButtonHandler(event) {
   event.preventDefault();
   if (event.target.classList.contains("view-button")) {
-    // console.log(`${event.target.dataset.view} button clicked`);
     const tasksToShow = getStorageData(event.target.dataset.view);
     viewState = event.target.dataset.view;
     renderTaskCards(tasksToShow);
@@ -91,7 +89,6 @@ formCloseButton.addEventListener("click", hideForm);
 
 // task Card button functions;
 function completeTaskButtonHandler(taskID) {
-  //   console.log(taskID, document.getElementById(taskID));
   updateTaskToComplete(taskID);
   renderTaskCards(getStorageData(viewState));
 }

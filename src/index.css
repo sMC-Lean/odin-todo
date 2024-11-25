@@ -41,23 +41,6 @@ h6 {
 #__next {
   isolation: isolate;
 }
-/* end CSS reset */
-
-/* <uniquifier>: Use a unique and descriptive class name
-<weight>: Use a value from 300 to 700 */
-
-/* .jura-<uniquifier> {
-  font-family: "Jura", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
-
-/* .numans-regular {
-  font-family: "Numans", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-} */
 
 body {
   font-family: "Jura", sans-serif;
@@ -106,7 +89,6 @@ button,
   color: var(--text-light-color);
   border-radius: 12px;
   padding: 2px 2ch;
-  /* min-width: 140px; */
 }
 
 button:hover,
@@ -117,10 +99,6 @@ button:active,
   color: var(--text-dark-color);
   transform: scale(1.1);
   transition: 0.2s;
-}
-
-.view-button {
-  /* min-width: 110px; */
 }
 
 #page-wrapper {
@@ -204,7 +182,6 @@ button:active,
   border-radius: 50%;
   font-size: 5rem;
   position: fixed;
-  /* bottom: 2rem; */
   top: 2rem;
   right: 2rem;
   cursor: default;
@@ -233,8 +210,6 @@ button:active,
 
 #modal {
   position: fixed;
-  /* max-width: 95vw;
-  width: 95vw; */
   top: 50%;
   left: 50%;
   border-radius: 12px;
@@ -330,7 +305,6 @@ div.task-complete > div.task-card-date-div > p:nth-child(2) {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  /* min-width: 100px; */
 }
 
 .high {
@@ -388,6 +362,11 @@ div.task-complete > div.task-card-date-div > p:nth-child(2) {
     align-self: flex-start;
   }
 
+  #view-div,
+  #list-div {
+    padding: 0;
+  }
+
   #header-bar h2,
   .task-card h2 {
     font-size: 24px;
@@ -400,7 +379,7 @@ div.task-complete > div.task-card-date-div > p:nth-child(2) {
   }
   #header-bar button {
     font-size: clamp(12px, 5vw, 20px);
-    width: clamp(85px, 40vw, 145px);
+    width: clamp(85px, 40vw, 180px);
   }
   #header-bar p,
   .task-card p {
